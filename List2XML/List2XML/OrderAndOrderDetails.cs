@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Xml;
@@ -29,9 +23,13 @@ namespace List2XML
         {
             var serializer = new XmlSerializer(typeof(Root));
             Root result=new Root();
+            result.Orders = new List<Orders>();
             result.Orders.Add(
-                new Orders { OrderID = "101", CustomerID = "001", 
-                    OrderDetails = new List<OrderDetails> 
+                new Orders()
+                {
+                    OrderID = "101",
+                    CustomerID = "001", 
+                    OrderDetails = new List<OrderDetails>()
                     { 
                         new OrderDetails
                         { 
@@ -43,6 +41,22 @@ namespace List2XML
                     } 
                 });
 
+            result.Orders.Add(
+                new Orders()
+                {
+                    OrderID = "102",
+                    CustomerID = "002",
+                    OrderDetails = new List<OrderDetails>()
+                    { 
+                        new OrderDetails
+                        { 
+                            OrderID="102",
+                            ProductID="2",
+                            UnitPrice=11,
+                            Quantity=5
+                        }
+                    }
+                });
 
             var stringwriter = new System.IO.StringWriter();
             var serializerToString = new XmlSerializer(typeof(Root));
